@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'animal_example.dart'; // Assuming animal classes defined here
+import 'package:firebase_core/firebase_core.dart';
 
 // Custom AnimalCard widget
 class AnimalCard extends StatelessWidget {
-   final Animal animal;
-   const AnimalCard( Key? key, this.animal}) : super(key: key);
+  final Animal animal;
+  const AnimalCard(Key? key, this.animal) : super(key: key);
+}
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized(); 
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(animal.runtimeType.toString().substring(6)), // Extract animal type
-        subtitle: Text(animal.makeSound()),
-      ),
-    );
-  }
+   await Firebase.initializeApp(); 
+}
+
+@override
+Widget build(BuildContext context) {
+  return Card(
+    child: ListTile(
+      title: Text(
+          animal.runtimeType.toString().substring(6)), // Extract animal type
+      subtitle: Text(animal.makeSound()),
+    ),
+  );
 }
 
 void main() {
@@ -38,8 +45,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title}); 
-
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -62,8 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: 
- Theme.of(context).colorScheme.inversePrimary, // Use theme color
+        backgroundColor:
+            Theme.of(context).colorScheme.inversePrimary, // Use theme color
       ),
       body: Center(
         child: Column(
@@ -74,7 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,),
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             // Display animal list using ListView.builder
             ListView.builder(
               shrinkWrap: true, // Adjust list height as needed
@@ -89,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add), 
+        child: const Icon(Icons.add),
       ),
     );
   }
