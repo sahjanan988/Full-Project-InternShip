@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/change_notifier.dart'; // Import ChangeNotifier
 
+
 // Custom AnimalCard widget (assuming animal classes defined elsewhere)
 class AnimalCard extends StatelessWidget {
   final Animal animal;
@@ -8,7 +9,7 @@ class AnimalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(   
+    return Card( 
 
       child: ListTile(
         title: Text(animal.runtimeType.toString().substring(6)), // Extract animal type
