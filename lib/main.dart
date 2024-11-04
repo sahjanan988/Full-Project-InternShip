@@ -7,10 +7,30 @@ class AnimalCard extends StatelessWidget {
   final Animal animal;
   const AnimalCard(Key? key, this.animal) : super(key: key);
 }
+class DetailScreen extends StatelessWidget {
+  final Animal animal;
+
+  const DetailScreen({Key? key, required this.animal}) : super(key: key);
+
 void main() async {
    WidgetsFlutterBinding.ensureInitialized(); 
 
    await Firebase.initializeApp(); 
+}
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Second Screen'),
+      ),
+      body: Center(
+        child: Text(args.toString()), 
+
+      ),
+    );
+  }
 }
 
 @override
@@ -45,12 +65,21 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  void navigateToDetailScreen(Animal animal) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DetailScreen(animal: animal),
+    ),
+  );
+}
   const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+  Navigator.pushNamed(context, '/second', arguments: 'Hello from FirstScreen');
 }
 
 class _MyHomePageState extends State<MyHomePage> {
